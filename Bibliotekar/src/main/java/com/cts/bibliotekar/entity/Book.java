@@ -1,4 +1,4 @@
-package com.cts.bibliotekar.Entity;
+package com.cts.bibliotekar.entity;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
