@@ -17,8 +17,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cts.bibliotekar.dto.BookRequestDTO;
 import com.cts.bibliotekar.entity.Book;
 import com.cts.bibliotekar.service.BookService;
+
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/books")
@@ -39,14 +42,14 @@ public class BookController {
 //	Creating a book
 	@ResponseStatus(HttpStatus.CREATED)
 	@PostMapping
-	public Book create(@RequestBody Book book) {
-		return bookService.save(book);
+	public Book create(@RequestBody @Valid BookRequestDTO bookRequestDTO) {
+		return bookService.save(bookRequestDTO);
 	}
 	
 //	Update a book
-	@PutMapping
-	public Book update(@RequestBody Book book) {
-		return bookService.save(book);
+	@PutMapping("/{id}")
+	public Book update(@PathVariable Long id, @RequestBody @Valid BookRequestDTO bookRequestDTO) {
+		return bookService.update(id, bookRequestDTO);
 	}
 	
 //	Delete a book
