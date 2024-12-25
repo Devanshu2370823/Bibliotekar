@@ -31,13 +31,13 @@ public class BookController {
 	@Autowired
 	private BookService bookService;
 	
-	@PreAuthorize("hasRole('ROLE_USER')")
+	@PreAuthorize("hasAuthority('ROLE_USER') or hasAuthority('ROLE_ADMIN')")
 	@GetMapping
 	public List<Book> findAll() {
 		return bookService.findAll();
 	}
 	
-	@PreAuthorize("hasRole('ROLE_USER')")
+	@PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
 	@GetMapping("/{id}")
 	public Optional<Book> findById(@PathVariable Long id) {
 		return bookService.findById(id);
@@ -46,7 +46,7 @@ public class BookController {
 //	Creating a book
 	@ResponseStatus(HttpStatus.CREATED)
 	@PostMapping
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
 	public Book create(@RequestBody @Valid BookRequestDTO bookRequestDTO) {
 		return bookService.save(bookRequestDTO);
 	}
@@ -66,13 +66,13 @@ public class BookController {
 		bookService.deleteById(id);
 	}
 	
-	@PreAuthorize("hasRole('ROLE_USER')")
+	@PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
 	@GetMapping("/find/title/{title}")
 	public List<Book> findByTitle(@PathVariable String title) {
 		return bookService.findByTitle(title);
 	}
 	
-	@PreAuthorize("hasRole('ROLE_USER')")
+	@PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
 	@GetMapping("/find/date-after/{date}")
 	public List<Book> findByPublishedDateAfter(@PathVariable @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate date) {
 		return bookService.findByPublishedDateAfter(date);
