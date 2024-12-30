@@ -58,7 +58,7 @@ public class SecurityConfig {
             })
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authenticationProvider(authenticationProvider())
-            .httpBasic(); // Use Basic Auth or switch to JWT later if needed
+            .httpBasic(Customizer.withDefaults()); // Use Basic Auth or switch to JWT later if needed
 
         return http.build();
     }
