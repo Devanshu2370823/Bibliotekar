@@ -12,8 +12,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cts.bibliotekar.dto.UserDTO;
 import com.cts.bibliotekar.entity.User;
 import com.cts.bibliotekar.service.UserService;
+
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/user")
@@ -22,13 +25,13 @@ public class UserController {
 	UserService userService;
 	
 	@PostMapping("/register")
-	public User saveUser(@RequestBody User user) {
-		return userService.saveUser(user);
+	public User saveUser(@RequestBody @Valid UserDTO userDTO) {
+		return userService.saveUser(userDTO);
 	}
 	
 	@PreAuthorize("hasRole('ADMIN')")
 	@GetMapping("/all")
-	public List<User> getAllUsers() {
+	public List<UserDTO> getAllUsers() {
 		return userService.getAllUsers();
 	}
 	
