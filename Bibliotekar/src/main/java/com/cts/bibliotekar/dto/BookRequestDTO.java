@@ -1,9 +1,12 @@
 package com.cts.bibliotekar.dto;
 
 import jakarta.validation.constraints.*;
+import lombok.Data;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+@Data
 public class BookRequestDTO {
 
     @NotBlank(message = "Title cannot be empty.")
@@ -17,31 +20,4 @@ public class BookRequestDTO {
     @NotNull(message = "Publish date is required.")
     @PastOrPresent(message = "Publish date cannot be in the future.")
     private LocalDate publishDate;
-
-    // Getters and setters
-
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
-
-    public LocalDate getPublishDate() {
-        return publishDate;
-    }
-
-    public void setPublishDate(LocalDate publishDate) {
-        this.publishDate = publishDate;
-    }
 }

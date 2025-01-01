@@ -27,10 +27,10 @@ public class BibliotekarApplication {
     CommandLineRunner demo(BookRepository bookRepository) {
         return (args) -> {
 
-            Book b1 = new Book("Book A", BigDecimal.valueOf(9.99), LocalDate.of(2023, 8, 31));
-            Book b2 = new Book("Book B", BigDecimal.valueOf(19.99), LocalDate.of(2023, 7, 31));
-            Book b3 = new Book("Book C", BigDecimal.valueOf(29.99), LocalDate.of(2023, 6, 10));
-            Book b4 = new Book("Book D", BigDecimal.valueOf(39.99), LocalDate.of(2023, 5, 5));
+            Book b1 = new Book(null, "Java", BigDecimal.valueOf(9.99), LocalDate.of(2023, 8, 31));
+            Book b2 = new Book(null, "C++", BigDecimal.valueOf(19.99), LocalDate.of(2023, 7, 31));
+            Book b3 = new Book(null, "Python", BigDecimal.valueOf(29.99), LocalDate.of(2023, 6, 10));
+            Book b4 = new Book(null, "JavaScript", BigDecimal.valueOf(39.99), LocalDate.of(2023, 5, 5));
 
             bookRepository.save(b1);
             bookRepository.save(b2);
@@ -52,9 +52,9 @@ public class BibliotekarApplication {
                 log.info("\n");
             });
 
-            log.info("Book found with findByTitle('Book C')");
+            log.info("Book found with findByTitle('Python')");
             log.info("--------------------------------------------");
-            bookRepository.findByTitle("Book C").forEach(b -> {
+            bookRepository.findByTitle("Python").forEach(b -> {
                 log.info(b.toString());
                 log.info("\n");
             });
@@ -66,13 +66,13 @@ public class BibliotekarApplication {
                 log.info("\n");
             });
 
-//            Below lines will delete Book B from database.
+//            Below lines will delete C++ from database.
             
 //            bookRepository.deleteById(2L);
 //            log.info("Book delete where ID = 2L");
 //            log.info("--------------------------------------------");
 
-            log.info("findAll() again, expect 3 books");
+            log.info("findAll() again, expect 4 books");
             log.info("-------------------------------");
             for (Book book : bookRepository.findAll()) {
                 log.info(book.toString());

@@ -38,32 +38,32 @@ class BookControllerTest {
     @Test
     void testFindAll_Success() throws Exception {
         // Arrange
-        Book book = new Book("Book A", BigDecimal.valueOf(9.99), LocalDate.now());
+        Book book = new Book(null, "Java", BigDecimal.valueOf(9.99), LocalDate.now());
         when(bookService.findAll()).thenReturn(Collections.singletonList(book));
 
         // Act & Assert
         mockMvc.perform(get("/books")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].title").value("Book A"));
+                .andExpect(jsonPath("$[0].title").value("Java"));
     }
 
     @Test
     void testCreate_Success() throws Exception {
         // Arrange
         BookRequestDTO bookRequestDTO = new BookRequestDTO();
-        bookRequestDTO.setTitle("Book B");
+        bookRequestDTO.setTitle("C++");
         bookRequestDTO.setPrice(BigDecimal.valueOf(19.99));
         bookRequestDTO.setPublishDate(LocalDate.now());
 
-        Book savedBook = new Book("Book B", BigDecimal.valueOf(19.99), LocalDate.now());
+        Book savedBook = new Book(null, "C++", BigDecimal.valueOf(19.99), LocalDate.now());
         when(bookService.save(any(BookRequestDTO.class))).thenReturn(savedBook);
 
         // Act & Assert
         mockMvc.perform(post("/books")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"title\":\"Book B\", \"price\":19.99, \"publishDate\":\"2023-08-31\"}"))
+                .content("{\"title\":\"C++\", \"price\":19.99, \"publishDate\":\"2023-08-31\"}"))
                 .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.title").value("Book B"));
+                .andExpect(jsonPath("$.title").value("C++"));
     }
 }

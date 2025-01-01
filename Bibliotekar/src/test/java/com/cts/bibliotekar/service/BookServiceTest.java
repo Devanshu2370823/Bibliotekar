@@ -30,7 +30,7 @@ class BookServiceTest {
     @Test
     void testFindById_Success() {
         // Arrange
-        Book book = new Book("Book A", BigDecimal.valueOf(9.99), LocalDate.now());
+        Book book = new Book(null, "Java", BigDecimal.valueOf(9.99), LocalDate.now());
         book.setId(1L);
         when(bookRepository.findById(1L)).thenReturn(Optional.of(book));
 
@@ -39,7 +39,7 @@ class BookServiceTest {
 
         // Assert
         assertTrue(result.isPresent());
-        assertEquals("Book A", result.get().getTitle());
+        assertEquals("Java", result.get().getTitle());
         verify(bookRepository, times(1)).findById(1L);
     }
 
@@ -47,11 +47,11 @@ class BookServiceTest {
     void testSave_Success() {
         // Arrange
         BookRequestDTO bookRequestDTO = new BookRequestDTO();
-        bookRequestDTO.setTitle("Book B");
+        bookRequestDTO.setTitle("C++");
         bookRequestDTO.setPrice(BigDecimal.valueOf(19.99));
         bookRequestDTO.setPublishDate(LocalDate.now());
 
-        Book savedBook = new Book("Book B", BigDecimal.valueOf(19.99), LocalDate.now());
+        Book savedBook = new Book(null, "C++", BigDecimal.valueOf(19.99), LocalDate.now());
         when(bookRepository.save(any(Book.class))).thenReturn(savedBook);
 
         // Act
@@ -59,7 +59,7 @@ class BookServiceTest {
 
         // Assert
         assertNotNull(result);
-        assertEquals("Book B", result.getTitle());
+        assertEquals("C++", result.getTitle());
         verify(bookRepository, times(1)).save(any(Book.class));
     }
 }
